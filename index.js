@@ -19,6 +19,5 @@ account.deposit(1000);
 console.log(account.deposit(-50));
 account.withdraw(200);
 console.log(account.withdraw(900));
-console.log(account.withdraw(900));
 console.log(account.withdraw(0));
 console.log(account.getBalance());
