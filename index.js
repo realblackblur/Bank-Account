@@ -1,23 +1,45 @@
-const account = {
-    owner: "Blur",
+const owner = {
+    name: "Blur",
     balance: 0,
-    deposit: function(num){
-        if (num <= 0) return "Invalid amount";
-        else this.balance += num;
+
+    deposit(amount) {
+        if (amount <= 0) {
+            throw new Error("Invalid amount");
+        } else {
+            this.balance += amount;
+            return `Deposit successful. New balance: $${this.balance}`;
+        }
     },
-    withdraw: function(num){
-        if (num <= 0) return "Invalid amount";
-        else if (num > this.balance) return "Insufficient funds";
-        else this.balance -= num;
+    withdraw(amount) {
+        if (amount <= 0) {
+            throw new Error("Invalid amount");
+        } else if (this.balance < amount) {
+            throw new Error("Insufficient funds");
+        } else {
+            this.balance -= amount;
+            return `Withdrawal successful. New balance: $${this.balance}`;
+        }
     },
-    getBalance: function(){
-        return `Owner: ${this.owner} | Balance: $${this.balance}`;
-    }
+    getBalance() {
+        return `Owner: ${this.name} | Balance: $${this.balance}`;
+    }       
+};
+
+
+console.log(owner.deposit(500));
+
+try {
+    console.log(owner.deposit(-100));
+} catch (error) {
+    console.log("Error:", error.message);
 }
 
-account.deposit(1000);
-console.log(account.deposit(-50));
-account.withdraw(200);
-console.log(account.withdraw(900));
-console.log(account.withdraw(0));
-console.log(account.getBalance());
+console.log(owner.withdraw(500));
+
+try {
+    console.log(owner.withdraw(500));
+} catch (error) {
+    console.log("Error:", error.message);
+}
+
+console.log(owner.getBalance());
