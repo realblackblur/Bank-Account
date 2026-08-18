@@ -6,19 +6,20 @@ class BankAccount {
         this.#balance = balance;
     }
 
+    #validate(amount) {
+        if (amount <= 0) throw new Error("Invalid Amount");
+    }
+
     deposit(amount) {
-        if (amount <= 0) {
-            throw new Error("Invalid Amount")
-        } else {
-            this.#balance += amount;
-            return `Deposit successful. New balance: $${this.#balance}`
-        }
+        this.#validate(amount);
+        this.#balance += amount;
+        return `Deposit successful. New balance: $${this.#balance}`
+        
     }
 
     withdraw(amount) {
-        if(amount <= 0) {
-            throw new Error("Invalid Amount")
-        } else if(this.#balance < amount) {
+        this.#validate(amount);
+        if(this.#balance < amount) {
             throw new Error("Insufficient Funds")
         } else {
             this.#balance -= amount;
